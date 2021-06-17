@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link as GatsbyLink } from 'gatsby';
 
 const Aside = styled.aside(
-  ({ show, theme: { borders, colors } }) => `
+  ({ show, aSideAnimation, bodyAnimation, theme: { borders, colors } }) => css`
     grid-area: navigation;
     height: 100%;
 
@@ -15,35 +15,24 @@ const Aside = styled.aside(
       position: fixed;
       top: 0;
       z-index: 4;
-      
+
       background-color: ${colors.white};
       border-right: none;
 
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      animation: ${aSideAnimation};
 
-      will-change: transform;
-
-      ~ div, ~ footer {
-        transform: translateX(0);
-
-        transition: transform 0.3s ease;
-        will-change: transform;
+      ~ div,
+      ~ footer {
+        animation: ${bodyAnimation};
       }
 
-      ${
-        show
-          ? `
-          transform: translateX(0);
-      
-          ~ div, ~ footer {
-            pointer-events: none;
-
-            transform: translateX(280px);
-          }
-        `
-          : ''
-      }
+      ${show
+        ? `
+            ~ div, ~ footer {
+              pointer-events: none;
+            }
+          `
+        : ''}
     }
   `,
 );

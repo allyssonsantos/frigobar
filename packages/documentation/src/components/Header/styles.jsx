@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from '@frigobar/core';
 
 const Wrapper = styled.header`
@@ -12,29 +12,23 @@ const Wrapper = styled.header`
 
   background-color: white;
 
-  ${({ show, home, theme: { spacings } }) => `
+  ${({ slideAnimation, home, theme: { spacings } }) => css`
     padding: ${spacings.small}px ${spacings.large}px;
 
     box-shadow: ${home ? 'none' : '0px 1px 3px rgba(0, 0, 0, 0.1)'};
-
-    transition: transform 0.3s ease;
-    transform: translateX(${show ? '280px' : '0'});
-    will-change: transform;
+    animation: ${slideAnimation};
 
     @media (min-width: 830px) {
       padding: ${spacings.large}px ${spacings.xxlarge}px;
-      transform: translateX(0);
     }
 
-    ${
-      home
-        ? `
+    ${home
+      ? `
         max-width: 1440px;
         margin: 0 auto;
         width: 100%;
       `
-        : ''
-    }
+      : ''}
   `}
 `;
 

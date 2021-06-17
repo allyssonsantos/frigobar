@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSlide } from '@frigobar/animation';
+
 import { Aside, Nav, Title, List, ListItem, Link } from './styles';
 
 const BodyOverflow = createGlobalStyle`
@@ -9,8 +11,21 @@ const BodyOverflow = createGlobalStyle`
   }
 `;
 const Navigation = forwardRef(({ items, show, ...props }, ref) => {
+  const [{ animation }] = useSlide({ start: show, from: '-100%', to: '0' });
+  const [{ animation: bodyAnimation }] = useSlide({
+    start: show,
+    from: '0',
+    to: '280px',
+  });
+
   return (
-    <Aside show={show} {...props} ref={ref}>
+    <Aside
+      show={show}
+      aSideAnimation={animation}
+      bodyAnimation={bodyAnimation}
+      {...props}
+      ref={ref}
+    >
       {show && <BodyOverflow />}
       <Nav show={show}>
         {Object.keys(items)

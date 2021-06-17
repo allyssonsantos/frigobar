@@ -1,0 +1,53 @@
+---
+title: useSlide
+menu: Hooks
+---
+
+This animation performs a slide to the component.
+
+#### Options object:
+
+useSlide receives an object for custom configurations, like:
+
+<!-- prettier-ignore -->
+| **prop** | **description** | **type** | **default value** |
+| ------------- | --------------- | ----------------- | ---- |
+| duration | the duration of every slide, it is a `ms` value | `number` | `300` |
+| direction | X or Y axis | `enum` | `x` |
+| start | if `true` will start the slide | `bool` | `true` |
+| from | A starting offset | `number|string` | `0` |
+| to | An ending offset | `number|string` | `undefined` |
+| alternate | Do a reverse animation when state is changed to `false` | `bool` | `true` |
+
+Example:
+
+```jsx react-live=true noInline fileName=slide.jsx
+function App() {
+  const [{ animation, state }, toggle] = useSlide({
+    from: '-100px',
+    to: '100px',
+    alternate: false,
+  });
+
+  return (
+    <Wrapper>
+      <div
+        animation={animation}
+        css={`
+          padding: 5px;
+          margin-bottom: 5px;
+          background: orange;
+          border-radius: 8px;
+        `}
+      >
+        Attention!
+      </div>
+      <Button onClick={() => toggle(!state)} skin="primary">
+        {state ? 'Back' : 'Go'}
+      </Button>
+    </Wrapper>
+  );
+}
+
+render(App);
+```
